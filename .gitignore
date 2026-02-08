@@ -1,0 +1,51 @@
+# Go
+bin/
+pkg/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go Modules
+go.sum
+
+# Vendor (если используете)
+vendor/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+*.log.*
+
+# Profiling
+*.prof
+*.trace
+cpu.out
+mem.out
+
+# Coverage
+coverage.html
+coverage.txt
+coverage.out
+
+# Auto-generated
+*.pb.go
+*.pb.gw.go
