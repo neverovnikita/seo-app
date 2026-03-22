@@ -5,13 +5,13 @@ import (
 	"seo-app/internal/models"
 )
 
-func ToProjectResponse(project *models.Project) ProjectResponse {
+func ToProjectResponse(project *models.Project) *ProjectResponse {
 	if project == nil {
-		return ProjectResponse{}
+		return nil
 	}
 	var keywords []string
 	if project.BaseKeywords != nil {
-		keywords = []string(project.BaseKeywords)
+		keywords = project.BaseKeywords
 	}
 
 	response := ProjectResponse{
@@ -31,13 +31,27 @@ func ToProjectResponse(project *models.Project) ProjectResponse {
 		}
 	}
 
-	return response
+	if project.AiResultData != nil && len(*project.AiResultData) > 0 {
+		var data map[string]interface{}
+		if err := json.Unmarshal(*project.AiResultData, &data); err == nil {
+			response.AiResultData = data
+		}
+	}
+
+	if project.SeoResultData != nil && len(*project.SeoResultData) > 0 {
+		var data map[string]interface{}
+		if err := json.Unmarshal(*project.SeoResultData, &data); err == nil {
+			response.SeoResultData = data
+		}
+	}
+
+	return &response
 }
 
 func ToProjectListResponse(projects []models.Project) []ProjectResponse {
 	responses := make([]ProjectResponse, len(projects))
 	for i, project := range projects {
-		responses[i] = ToProjectResponse(&project)
+		responses[i] = *ToProjectResponse(&project)
 	}
 	return responses
 }

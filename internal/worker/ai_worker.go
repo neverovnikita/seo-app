@@ -65,4 +65,6 @@ func (w *AiWorker) processOne() {
 	if err != nil {
 		log.Printf("Ошибка добавления задачи wordstat для %s: %v", id, err)
 	}
+
+	log.Printf("Конец обработки проекта %s через ИИ", id)
 }

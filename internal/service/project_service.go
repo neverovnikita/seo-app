@@ -41,7 +41,7 @@ func (s *ProjectService) CreateProject(input dto.CreateProjectRequest) (*dto.Pro
 	if err != nil {
 		log.Println("Не удалось добавить задачу в очередь: " + err.Error())
 	}
-	return &response, nil
+	return response, nil
 }
 
 func (s *ProjectService) GetProjectById(id string) (*dto.ProjectResponse, error) {
@@ -52,7 +52,7 @@ func (s *ProjectService) GetProjectById(id string) (*dto.ProjectResponse, error)
 	}
 	project, err := s.repo.GetById(corrId)
 	response := dto.ToProjectResponse(project)
-	return &response, nil
+	return response, nil
 }
 
 func (s *ProjectService) GetAllProjects() (*[]dto.ProjectResponse, error) {
@@ -85,15 +85,19 @@ func (s *ProjectService) UpdateAIResult(id uuid.UUID, result KeywordsResult) err
 	return nil
 }
 
-func (s *ProjectService) UpdateSeoResult(id uuid.UUID, result map[string]interface{}) error {
-	err := s.repo.UpdateSeoResult(id, result)
+func (s *ProjectService) UpdateSeoResult(id uuid.UUID, result *WordstatResponse) error {
+	data := map[string]interface{}{
+		"Results":   result.Results,
+		"UpdatedAt": time.Now(),
+	}
+	err := s.repo.UpdateSeoResult(id, data)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *ProjectService) MarkCompleted(id uuid.UUID, status string) error {
+func (s *ProjectService) MarkCompleted(id uuid.UUID) error {
 	err := s.repo.MarkCompleted(id)
 	if err != nil {
 		return err

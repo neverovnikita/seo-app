@@ -15,12 +15,14 @@ type CreateProjectRequest struct {
 }
 
 type ProjectResponse struct {
-	ID           uuid.UUID              `json:"id"`
-	Name         string                 `json:"name"`
-	Description  string                 `json:"description"`
-	BaseKeywords []string               `json:"base_keywords"`
-	Status       models.ProjectStatus   `json:"status"` // "pending", "processing", "completed", "failed"
-	ResultData   map[string]interface{} `json:"result_data,omitempty"`
-	CreatedAt    time.Time              `json:"created_at"`
-	UpdatedAt    time.Time              `json:"updated_at"`
+	ID            uuid.UUID              `json:"id"`
+	Name          string                 `json:"name"`
+	Description   string                 `json:"description"`
+	BaseKeywords  []string               `json:"base_keywords"`
+	Status        models.ProjectStatus   `json:"status"` // "pending", "processing", "completed", "failed"
+	ResultData    map[string]interface{} `json:"result_data,omitempty"`
+	AiResultData  map[string]interface{} `json:"ai_result_data,omitempty"`
+	SeoResultData map[string]interface{} `json:"seo_result_data,omitempty" `
+	CreatedAt     time.Time              `json:"created_at"`
+	UpdatedAt     time.Time              `json:"updated_at"`
 }

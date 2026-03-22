@@ -11,35 +11,35 @@ import (
 )
 
 func main() {
-	//	err := godotenv.Load("C:\\Users\\Никита\\Desktop\\КУРСЫ\\seo-app\\.env")
-	////	if err != nil {
-	////		log.Fatal("Error loading .env file")
-	////	}
-	////	apiKey := os.Getenv("AI_API_KEY")
-	////	fmt.Println(apiKey)
-	////	apiURL := os.Getenv("AI_API_URL")
-	////	fmt.Println(apiURL)
-	////	model := os.Getenv("AI_MODEL")
-	////	fmt.Println(model)
-	////
-	////	const keywordExpansionPrompt = `Расширь ключевые слова для SEO.
-	////Описание: "%s"
-	////Базовые слова: %s
-	////Сгенерируй 70-100 ключевых слов на русском.
-	////Включи:
-	////- Короткие (1-2 слова)
-	////- Длинные (3-4 слова)
-	////- С "купить", "цена"
-	////- Геозависимые (Москва, СПб)
-	////Формат: ["слово1", "слово2", ...]
-	////
-	////Только JSON массив.`
-	////	aiService := service.NewAIService(apiKey, apiURL, model, nil)
-	////	res, err := aiService.SendPrompt(keywordExpansionPrompt)
-	////	if err != nil {
-	////		fmt.Println(err)
-	////	}
-	////	fmt.Println(res)
+	err := godotenv.Load("C:\\Users\\Никита\\Desktop\\КУРСЫ\\seo-app\\.env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	apiKey := os.Getenv("AI_API_KEY")
+	fmt.Println(apiKey)
+	apiURL := os.Getenv("AI_API_URL")
+	fmt.Println(apiURL)
+	model := os.Getenv("AI_MODEL")
+	fmt.Println(model)
+
+	const keywordExpansionPrompt = `Расширь ключевые слова для SEO.
+	Описание: "%s"
+	Базовые слова: %s
+	Сгенерируй 70-100 ключевых слов на русском.
+	Включи:
+	- Короткие (1-2 слова)
+	- Длинные (3-4 слова)
+	- С "купить", "цена"
+	- Геозависимые (Москва, СПб)
+	Формат: ["слово1", "слово2", ...]
+	
+	Только JSON массив.`
+	aiService := service.NewAIService(apiKey, apiURL, model, nil)
+	res, err := aiService.SendPrompt(keywordExpansionPrompt)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(res)
 
 	if err := godotenv.Load("C:\\Users\\Никита\\Desktop\\КУРСЫ\\seo-app\\.env"); err != nil {
 		log.Println("No .env file found, using system environment")

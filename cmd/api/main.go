@@ -27,6 +27,8 @@ func main() {
 	if serverPort == "" {
 		serverPort = "8080"
 	}
+	wordstatApiKey := os.Getenv("WORDSTAT_API_KEY")
+	baseURL := os.Getenv("WORDSTAT_API_URL")
 
 	log.Printf("Starting server on port:  %d", serverPort)
 
@@ -42,8 +44,10 @@ func main() {
 	}(db)
 
 	log.Println("Database connected")
+
 	apiKey := os.Getenv("AI_API_KEY")
 	log.Println("API Key:", apiKey)
+
 	apiURL := os.Getenv("AI_API_URL")
 	model := os.Getenv("AI_MODEL")
 
@@ -55,9 +59,13 @@ func main() {
 	jobService := service.NewJobsService(jobRepo)
 	aiService := service.NewAIService(apiKey, apiURL, model, nil)
 	projectService := service.NewProjectService(projectRepo, aiService, jobService)
+	wsService := service.NewWordstatService(baseURL, wordstatApiKey, nil)
 
+	//make workers
 	aiWorker := worker.NewAiWorker(jobService, projectService, aiService)
+	wsWorker := worker.NewWordstatWorker(jobService, projectService, wsService)
 	go aiWorker.Run()
+	go wsWorker.Run()
 
 	projectHandler := handler.NewProjectHandler(projectService)
 
